@@ -1,0 +1,74 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.9'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.beyond'
+version = '0.0.1-SNAPSHOT'
+description = 'basic project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+//gradle 빌드 툴을 사용 하더라도 저장소로 maven repository 사용
+repositories {
+	mavenCentral()
+}
+// 의존성(dependency) : 해당 프로젝트에서 사용 할 라이브러리
+dependencies {
+//    spring 웹서비스(http)를 위한 기본 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+//    getter, setter 등 개발의 편의성을 증대 시켜주는 각종 어노테이션 포함하는 의존성
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+//    스프링에서 화면을 만들어 사용자에게 주는(MVC) 기술 중 하나
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+//    db 드라이버 : mariadb, mysql, oracle 등
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+//    db 관리 기술 : jdbc, mybatis, jpa(spring data jpa)
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+//    값 검증을 위한 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+//	로그인을 위한 security 의존성
+//  security 의존성을 적용 하자마자, 모든 api요청에 대해 로그인을 요구(Authentication 객체의 생성여부 확인)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	jwt토큰 관련 라이브러리 추가
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+// 	토큰의 JSON 인코딩/디코딩, 직렬화/파싱에 필요
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+//  batch의존성추가
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+	//    파일처리를 위한 aws 의존성 추가
+	implementation 'software.amazon.awssdk:s3:2.29.50'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+//	swagger 사용하기 위한 의존성 추가
+//	접속 url: http://localhost:8080/swagger-ui.html
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+
+//	재고 관련 rdb동기화 작업을 이벤트 기반 비동기적으로 처리하기 위한 rabbitmq 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+//    아래는 테스트 코드 작성을 위한 의존성
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

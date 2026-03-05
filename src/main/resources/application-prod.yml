@@ -1,0 +1,49 @@
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://xxxxxxxx:3306/ordersystem?useSSL=true
+    username: xxxxxxx
+    password: xxxxxxx
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  redis:
+    host: xxxxxxxxxx
+    port: 6379
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+
+jwt:
+  expiration: 30
+  secretKey: YmV5b25kYWNjZXNzdG9rZW5zZWNyZXRrZXliZXlvbmRhY2Nlc3N0b2tlbnNlY3JldGtleWJleW9uZGFjY2Vzc3Rva2Vuc2VjcmV0a2V5
+  expirationRt: 30000
+  secretKeyRt: YmV5b25kYWNjZXNzdG9rZW5zZWNyZXRrZXliZXlvbmRhY2Nlc3N0b2tlbnNlY3JldGtleWJleW9uZGFjY2Vzc3Rva2Vuc2VjcmV0a2V5
+
+logging:
+  level:
+    root: info
+
+aws:
+  credentials:
+    access-key: xxxxxxxxxx
+    secret-key: yyyyyyyyyy
+  region: ap-northeast-2
+  s3:
+    bucket1: abilitytony-board-profile-image
+
+
